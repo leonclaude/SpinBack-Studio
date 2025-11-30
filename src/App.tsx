@@ -1,0 +1,306 @@
+import { useState } from "react";
+import { ResultCard } from "./components/ResultCard";
+import { AboutModal } from "./components/AboutModal";
+import type { SpinbackResult, ExampleClause } from "./types";
+
+const EXAMPLE_CLAUSES: ExampleClause[] = [
+  {
+    label: "Perpetual promotional rights",
+    text: "By submitting your project, you grant us a non-exclusive, worldwide, perpetual right to use, reproduce, display, and share your submission for marketing and promotional purposes.",
+  },
+  {
+    label: "Content posted in community channels",
+    text: "Any content you post in our community channels, including messages, links, and images, may be used by us for community engagement, marketing, and future promotional campaigns.",
+  },
+  {
+    label: "Data sharing with partners",
+    text: "We may share your information with trusted third-party partners for analytics, advertising, and service improvement purposes.",
+  },
+];
+
+function App() {
+  const [clause, setClause] = useState("");
+  const [result, setResult] = useState<SpinbackResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showAbout, setShowAbout] = useState(false);
+
+  const handleGenerate = async () => {
+    setError(null);
+    setResult(null);
+
+    if (!clause.trim()) {
+      setError("Drop a clause in first — even sorcery needs an ingredient.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+      const apiUrl = `${supabaseUrl}/functions/v1/remix`;
+
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${supabaseAnonKey}`,
+        },
+        body: JSON.stringify({ clause }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to generate spinbacks.");
+      }
+
+      const data = (await res.json()) as SpinbackResult;
+      setResult(data);
+    } catch (err: unknown) {
+      console.error(err);
+      const errorMessage = err instanceof Error ? err.message : "Something slipped. Try again in a few seconds.";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUseExample = (text: string) => {
+    setClause(text);
+    setResult(null);
+    setError(null);
+  };
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text).catch(() => undefined);
+  };
+
+  return (
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-50">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(168,85,247,0.16),_transparent_55%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.13] mix-blend-screen bg-[linear-gradient(to_right,_rgba(148,163,184,0.25)_1px,transparent_1px),linear-gradient(to_bottom,_rgba(148,163,184,0.18)_1px,transparent_1px)] bg-[size:40px_40px]"
+      />
+
+      <header className="relative z-10 border-b border-slate-800/80 backdrop-blur-sm bg-slate-950/70">
+        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+          <div className="space-y-0.5">
+            <div className="inline-flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
+              <h1 className="text-lg sm:text-xl font-semibold tracking-tight">
+                SpinBack Studio
+              </h1>
+            </div>
+            <p className="text-xs sm:text-[0.75rem] text-slate-400">
+              Clause Reframe Console · Turn their terms into your terms.
+            </p>
+          </div>
+          <button
+            onClick={() => setShowAbout(true)}
+            className="text-[0.7rem] sm:text-xs px-3 py-1.5 rounded-full border border-slate-700/80 bg-slate-900/70 hover:border-sky-400 hover:text-sky-100 hover:bg-slate-900 transition"
+          >
+            About this demo
+          </button>
+        </div>
+      </header>
+
+      <main className="relative z-10">
+        <div className="max-w-5xl mx-auto px-4 py-6 sm:py-10">
+          <div className="rounded-3xl border border-slate-700/70 bg-slate-950/85 shadow-[0_0_0_1px_rgba(15,23,42,0.9),0_32px_120px_rgba(15,23,42,0.95)] overflow-hidden">
+            <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 border-b border-slate-800/80 bg-gradient-to-r from-slate-950/90 via-slate-900/70 to-slate-950/90">
+              <div className="flex items-center gap-2">
+                <span className="flex gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+                </span>
+                <span className="text-[0.7rem] uppercase tracking-[0.18em] text-slate-500">
+                  SPINBACK SESSION
+                </span>
+              </div>
+              <span className="text-[0.65rem] text-slate-500">
+                Mode: <span className="text-sky-300">Public Demo</span>
+              </span>
+            </div>
+
+            <div className="px-4 sm:px-6 py-5 sm:py-7 space-y-6">
+              <section className="space-y-1.5">
+                <h2 className="text-base sm:text-lg font-semibold">
+                  Paste a clause. Watch the spinbacks snap into place.
+                </h2>
+                <p className="text-xs sm:text-[0.8rem] text-slate-400 max-w-2xl">
+                  SpinBack Studio is a lightweight, public-tier tool for
+                  reframing dense clauses into human language. It doesn&apos;t
+                  give legal advice—just tone shifts you&apos;d be fine seeing
+                  screenshotted and shared.
+                </p>
+              </section>
+
+              <section className="grid gap-6 lg:grid-cols-[minmax(0,2.1fr)_minmax(0,1.1fr)] items-start">
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <label className="text-[0.7rem] uppercase tracking-wide text-slate-400">
+                      Input clause
+                    </label>
+                    <div className="relative">
+                      <textarea
+                        value={clause}
+                        onChange={(e) => setClause(e.target.value)}
+                        placeholder="Paste a clause from terms, privacy policies, hackathon rules, or content licenses…"
+                        className="w-full h-40 sm:h-48 rounded-xl border border-slate-800 bg-slate-950/90 px-3 py-2 text-xs sm:text-[0.83rem] leading-relaxed placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-500/60 focus:border-sky-400/80 resize-vertical"
+                      />
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 rounded-b-xl bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-[0.7rem] text-slate-500 max-w-xs">
+                      Drop something dense in. We&apos;ll reduce it to four
+                      bite-sized takes, including one in Succulent Tech Tone.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleGenerate}
+                      disabled={loading}
+                      className="inline-flex items-center gap-2 rounded-full bg-sky-500 hover:bg-sky-400 disabled:opacity-60 disabled:hover:bg-sky-500 px-4 py-2 text-[0.75rem] sm:text-xs font-medium text-slate-950 transition shadow-[0_0_18px_rgba(56,189,248,0.55)]"
+                    >
+                      {loading && (
+                        <span className="h-3 w-3 rounded-full border-2 border-slate-950 border-l-transparent animate-spin" />
+                      )}
+                      {loading ? "Spinning…" : "Generate Spinbacks"}
+                    </button>
+                  </div>
+
+                  {error && (
+                    <p className="text-[0.72rem] text-rose-400 bg-rose-950/40 border border-rose-900/70 rounded-lg px-3 py-2 mt-1">
+                      {error}
+                    </p>
+                  )}
+
+                  <p className="text-[0.68rem] text-slate-500 mt-1">
+                    Not legal advice. SpinBack doesn&apos;t judge enforceability
+                    or tell you what to sign—it just surfaces the tone behind
+                    the text in human-speak.
+                  </p>
+                </div>
+
+                <aside className="space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="text-[0.7rem] uppercase tracking-wide text-slate-400">
+                      Quick-start clauses
+                    </h3>
+                    <span className="text-[0.65rem] text-slate-500">
+                      Tap to insert
+                    </span>
+                  </div>
+                  <div className="space-y-2">
+                    {EXAMPLE_CLAUSES.map((ex) => (
+                      <button
+                        key={ex.label}
+                        type="button"
+                        onClick={() => handleUseExample(ex.text)}
+                        className="w-full text-left rounded-xl border border-slate-800 bg-slate-950/80 hover:border-sky-400/70 hover:bg-slate-950/95 transition px-3 py-2.5"
+                      >
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <span className="text-[0.75rem] font-medium text-slate-100">
+                            {ex.label}
+                          </span>
+                          <span className="text-[0.6rem] uppercase tracking-wide text-slate-500">
+                            Insert
+                          </span>
+                        </div>
+                        <p className="text-[0.7rem] text-slate-400 line-clamp-3">
+                          {ex.text}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-[0.68rem] text-slate-500">
+                    These are generic sample clauses for demonstration only. You
+                    can paste any text you want to see rephrased.
+                  </p>
+                </aside>
+              </section>
+
+              <section className="space-y-3 pt-1">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="text-[0.7rem] uppercase tracking-wide text-slate-400">
+                    Generated spinbacks
+                  </h3>
+                  {result && (
+                    <span className="text-[0.65rem] text-slate-500">
+                      Engineered to be safe to screenshot &amp; share.
+                    </span>
+                  )}
+                </div>
+
+                {!result && !loading && !error && (
+                  <p className="text-[0.78rem] text-slate-500">
+                    When you generate spinbacks, you&apos;ll see four short
+                    reframes here: plain language, cheeky, PSA, and our
+                    signature Succulent Tech Tone.
+                  </p>
+                )}
+
+                {result && (
+                  <div className="grid gap-3 md:grid-cols-4">
+                    <ResultCard
+                      title="Plain language"
+                      badge="The Naked Ingredient"
+                      accent="from-sky-500/40"
+                      text={result.plain}
+                      onCopy={() => handleCopy(result.plain)}
+                    />
+                    <ResultCard
+                      title="Cheeky reframe"
+                      badge="The Wink"
+                      accent="from-amber-400/50"
+                      text={result.cheeky}
+                      onCopy={() => handleCopy(result.cheeky)}
+                    />
+                    <ResultCard
+                      title="PSA / awareness"
+                      badge="The Quick Bite"
+                      accent="from-emerald-400/50"
+                      text={result.psa}
+                      onCopy={() => handleCopy(result.psa)}
+                    />
+                    <ResultCard
+                      title="Succulent Tech Tone"
+                      badge="The Full Flavor"
+                      accent="from-fuchsia-400/55"
+                      text={result.succulent}
+                      onCopy={() => handleCopy(result.succulent)}
+                    />
+                  </div>
+                )}
+              </section>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer className="relative z-10 border-t border-slate-800/80 bg-slate-950/90 backdrop-blur-sm">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+          <p className="text-[0.7rem] text-slate-500">
+            Public demo. No confidential methods or proprietary frameworks
+            included. If you scraped this for IP, you grabbed the decoy layer. 🙂
+          </p>
+          <p className="text-[0.7rem] text-slate-500">
+            A deeper consumer-rights translator lives privately inside the
+            Peeved/Pleased Patron ecosystem.
+          </p>
+        </div>
+      </footer>
+
+      {showAbout && <AboutModal onClose={() => setShowAbout(false)} />}
+    </div>
+  );
+}
+
+export default App;
