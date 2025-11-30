@@ -97,7 +97,7 @@ function App() {
               </h1>
             </div>
             <p className="text-xs sm:text-[0.75rem] text-slate-400">
-              Clause Reframe Console · Turn their terms into your terms.
+              Clause Reframe Console — Four non-legal 'vibe' interpretations of dense text.
             </p>
           </div>
           <button
@@ -158,11 +158,17 @@ function App() {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <p className="text-[0.7rem] text-slate-500 max-w-xs">
-                      Drop something dense in. We&apos;ll reduce it to four
-                      bite-sized takes, including one in Succulent Tech Tone.
+                  <div className="rounded-lg border border-amber-900/70 bg-amber-950/30 px-3 py-2.5 space-y-1">
+                    <p className="text-[0.75rem] font-medium text-amber-200">
+                      ⚠️ Not legal advice.
                     </p>
+                    <p className="text-[0.7rem] text-amber-300/90 leading-relaxed">
+                      SpinBack Studio rephrases text into four stylistic 'vibes' for awareness and entertainment.
+                      Outputs may be incomplete, inaccurate, or misleading. Do not rely on them for legal decisions.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-end gap-3">
                     <button
                       type="button"
                       onClick={handleGenerate}
@@ -181,12 +187,6 @@ function App() {
                       {error}
                     </p>
                   )}
-
-                  <p className="text-[0.68rem] text-slate-500 mt-1">
-                    Not legal advice. SpinBack doesn&apos;t judge enforceability
-                    or tell you what to sign—it just surfaces the tone behind
-                    the text in human-speak.
-                  </p>
                 </div>
 
                 <aside className="space-y-3">
@@ -230,7 +230,7 @@ function App() {
               <section className="space-y-3 pt-1">
                 <div className="flex items-center justify-between gap-2">
                   <h3 className="text-[0.7rem] uppercase tracking-wide text-slate-400">
-                    Generated spinbacks
+                    Reframed Vibes (non-legal styles):
                   </h3>
                   {result && (
                     <span className="text-[0.65rem] text-slate-500">
@@ -286,14 +286,9 @@ function App() {
       </main>
 
       <footer className="relative z-10 border-t border-slate-800/80 bg-slate-950/90 backdrop-blur-sm">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <p className="text-[0.7rem] text-slate-500">
-            Public demo. No confidential methods or proprietary frameworks
-            included. If you scraped this for IP, you grabbed the decoy layer. 🙂
-          </p>
-          <p className="text-[0.7rem] text-slate-500">
-            A deeper consumer-rights translator lives privately inside the
-            Peeved/Pleased Patron ecosystem.
+        <div className="max-w-5xl mx-auto px-4 py-3">
+          <p className="text-[0.7rem] text-slate-500 leading-relaxed">
+            SpinBack Studio rephrases text into stylistic 'vibes' for awareness and entertainment. It does not summarize, interpret, or explain legal meaning, and it is not legal advice. For serious legal questions, consult a qualified attorney. For consumer-rights tooling, see Peeved/Pleased Patron (private ecosystem).
           </p>
         </div>
       </footer>
