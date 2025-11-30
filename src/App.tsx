@@ -248,7 +248,38 @@ function App() {
                 )}
 
                 {result && (
-                  <div className="grid gap-3 md:grid-cols-4">
+                  <>
+                    <div className="rounded-xl border border-slate-700/70 bg-slate-900/50 px-4 py-3 space-y-2">
+                      <h4 className="text-[0.8rem] font-semibold text-slate-100">
+                        Tone Signal (non-legal linguistic vibe):
+                      </h4>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                        <span
+                          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${
+                            result.toneSignal === "green"
+                              ? "bg-emerald-500/15 text-emerald-300"
+                              : result.toneSignal === "yellow"
+                              ? "bg-amber-500/15 text-amber-300"
+                              : "bg-rose-500/15 text-rose-300"
+                          }`}
+                        >
+                          {result.toneSignal === "green" && "🟢 Typical phrasing"}
+                          {result.toneSignal === "yellow" &&
+                            "🟡 Broad or open-ended-sounding phrasing"}
+                          {result.toneSignal === "red" &&
+                            "🔴 Heavy, strongly one-sided or perpetual-sounding phrasing"}
+                        </span>
+                        <span className="text-[0.8rem] text-slate-200">
+                          {result.toneReason}
+                        </span>
+                      </div>
+                      <p className="text-[0.7rem] text-slate-400 italic">
+                        Tone signals describe how the wording feels to a typical
+                        reader, not legal meaning or risk.
+                      </p>
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-4">
                     <ResultCard
                       title="Plain language"
                       badge="The Naked Ingredient"
@@ -278,6 +309,7 @@ function App() {
                       onCopy={() => handleCopy(result.succulent)}
                     />
                   </div>
+                  </>
                 )}
               </section>
             </div>

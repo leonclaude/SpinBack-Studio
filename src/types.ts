@@ -3,6 +3,8 @@ export type SpinbackResult = {
   cheeky: string;
   psa: string;
   succulent: string;
+  toneSignal: "green" | "yellow" | "red";
+  toneReason: string;
 };
 
 export type ExampleClause = {
