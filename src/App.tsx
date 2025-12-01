@@ -111,7 +111,7 @@ function App() {
 
       <main className="relative z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
-          <div className="rounded-3xl border border-slate-700/70 bg-slate-950/85 shadow-[0_0_0_1px_rgba(15,23,42,0.9),0_32px_120px_rgba(15,23,42,0.95)] overflow-hidden">
+          <div className="rounded-3xl border border-slate-700/70 bg-slate-950/85 shadow-[0_0_0_1px_rgba(15,23,42,0.9),0_32px_120px_rgba(15,23,42,0.95)] overflow-x-hidden">
             <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 border-b border-slate-800/80 bg-gradient-to-r from-slate-950/90 via-slate-900/70 to-slate-950/90">
               <div className="flex items-center gap-2">
                 <span className="flex gap-1.5">
@@ -240,7 +240,7 @@ function App() {
                       <span className="cursor-help text-xs text-slate-400 border border-slate-600 rounded-full px-1.5 py-0.5 whitespace-nowrap">
                         Why four styles?
                       </span>
-                      <div className="absolute z-20 mt-2 left-0 hidden w-64 max-w-[calc(100vw-2rem)] rounded-md border border-slate-700 bg-slate-900/95 px-3 py-2 text-xs text-slate-200 shadow-lg group-hover:block">
+                      <div className="absolute z-50 mt-2 left-0 hidden w-64 max-w-[calc(100vw-2rem)] rounded-md border border-slate-700 bg-slate-900/98 backdrop-blur-sm px-3 py-2 text-xs text-slate-200 shadow-xl group-hover:block">
                         <p className="font-semibold mb-1">Each style exposes a different dimension of the clause:</p>
                         <ul className="list-disc list-inside space-y-0.5">
                           <li><span className="font-semibold">Plain</span> → clarity</li>
