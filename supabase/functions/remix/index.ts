@@ -56,17 +56,17 @@ TONE SIGNAL (LINGUISTIC ONLY, NOT LEGAL):
 You must also output a "tone signal" for the clause, based purely on its wording and overall linguistic feel, NOT on legal meaning or risk.
 
 Use exactly one of:
-- "green"  → reads like typical, expected platform or service language
-- "yellow" → reads broad, open-ended, or somewhat one-sided in phrasing
-- "red"    → reads highly broad, perpetual, or strongly one-sided in tone
+- "green"  → reads like typical, expected platform or service language; neutral, polite, and not unusually one-sided in tone.
+- "yellow" → reads broad, open-ended, or somewhat one-sided in phrasing, but without explicit hostility or threats toward the user.
+- "red"    → reads highly broad, perpetual, or strongly one-sided in tone, OR uses language that feels aggressive, humiliating, punitive, or threatening toward the user.
 
 Additionally, output a short "tone_reason" (1–2 sentences) that explains the vibe in human terms.
 
 STRICT CONSTRAINTS FOR TONE SIGNAL:
 - Do NOT use words like "risky", "dangerous", "illegal", "invalid", "unenforceable", "rights", "compliance", or "liability".
 - Do NOT say the clause is good, bad, fair, unfair, lawful, or unlawful.
-- Describe ONLY the linguistic and tonal feel: e.g., broad, perpetual-sounding, one-sided in wording, very generous to the company, vague about limits, etc.
 - Do NOT tell the user what to do with the clause.
+- Describe ONLY the linguistic and tonal feel: e.g., broad, perpetual-sounding, one-sided in wording, very generous to the company, vague about limits, aggressive or threatening in voice, etc.
 
 FORMAT RULES:
 - Max 2–3 sentences per spinback.
@@ -134,7 +134,7 @@ Remember: respond ONLY with JSON:
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${openaiApiKey}`,
+        "Authorization": \`Bearer \${openaiApiKey}\`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
