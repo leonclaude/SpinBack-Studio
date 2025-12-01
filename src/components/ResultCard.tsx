@@ -3,10 +3,18 @@ type ResultCardProps = {
   badge: string;
   accent: string;
   text: string;
+  variant: "plain" | "cheeky" | "psa" | "succulent";
   onCopy: () => void;
 };
 
-export function ResultCard({ title, badge, accent, text, onCopy }: ResultCardProps) {
+const variantDescriptions = {
+  plain: "The simplest, clearest version of what the clause says.",
+  cheeky: "Surfaces the attitude behind the wording.",
+  psa: "Highlights safety or awareness signals.",
+  succulent: "Makes the meaning stick through vivid storytelling.",
+};
+
+export function ResultCard({ title, badge, accent, text, variant, onCopy }: ResultCardProps) {
   return (
     <div className="relative group rounded-2xl border border-slate-800 bg-slate-950/90 p-3 flex flex-col justify-between min-h-[9.5rem] overflow-hidden">
       <div
@@ -21,6 +29,9 @@ export function ResultCard({ title, badge, accent, text, onCopy }: ResultCardPro
           <span className="inline-flex mt-1 px-2 py-0.5 rounded-full text-[0.6rem] bg-slate-900/80 border border-slate-700 text-slate-200 uppercase tracking-wide">
             {badge}
           </span>
+          <p className="mt-1 text-[0.68rem] text-slate-300 leading-snug">
+            {variantDescriptions[variant]}
+          </p>
         </div>
         <button
           type="button"

@@ -139,6 +139,9 @@ function App() {
                   give legal advice—just tone shifts you&apos;d be fine seeing
                   screenshotted and shared.
                 </p>
+                <p className="mt-2 text-sm text-slate-300">
+                  It helps you see the intent and tone behind dense clauses — the part companies never spell out.
+                </p>
               </section>
 
               <section className="grid gap-6 lg:grid-cols-[minmax(0,2.1fr)_minmax(0,1.1fr)] items-start">
@@ -229,9 +232,28 @@ function App() {
 
               <section className="space-y-3 pt-1">
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-[0.7rem] uppercase tracking-wide text-slate-400">
-                    Reframed Vibes (non-legal styles):
-                  </h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-[0.7rem] uppercase tracking-wide text-slate-400">
+                      Reframed Vibes (non-legal styles):
+                    </h3>
+                    <div className="relative group">
+                      <span className="cursor-help text-xs text-slate-400 border border-slate-600 rounded-full px-1.5 py-0.5">
+                        Why four styles?
+                      </span>
+                      <div className="absolute z-20 mt-2 hidden w-64 rounded-md border border-slate-700 bg-slate-900/95 px-3 py-2 text-xs text-slate-200 shadow-lg group-hover:block">
+                        <p className="font-semibold mb-1">Each style exposes a different dimension of the clause:</p>
+                        <ul className="list-disc list-inside space-y-0.5">
+                          <li><span className="font-semibold">Plain</span> → clarity</li>
+                          <li><span className="font-semibold">Cheeky</span> → tone</li>
+                          <li><span className="font-semibold">PSA</span> → safety awareness</li>
+                          <li><span className="font-semibold">Succulent</span> → memorability</li>
+                        </ul>
+                        <p className="mt-1 text-[0.68rem] text-slate-400">
+                          This isn&apos;t humor — it&apos;s multi-angle comprehension.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                   {result && (
                     <span className="text-[0.65rem] text-slate-500">
                       Engineered to be safe to screenshot &amp; share.
@@ -285,6 +307,7 @@ function App() {
                       badge="The Naked Ingredient"
                       accent="from-sky-500/40"
                       text={result.plain}
+                      variant="plain"
                       onCopy={() => handleCopy(result.plain)}
                     />
                     <ResultCard
@@ -292,6 +315,7 @@ function App() {
                       badge="The Wink"
                       accent="from-amber-400/50"
                       text={result.cheeky}
+                      variant="cheeky"
                       onCopy={() => handleCopy(result.cheeky)}
                     />
                     <ResultCard
@@ -299,6 +323,7 @@ function App() {
                       badge="The Quick Bite"
                       accent="from-emerald-400/50"
                       text={result.psa}
+                      variant="psa"
                       onCopy={() => handleCopy(result.psa)}
                     />
                     <ResultCard
@@ -306,6 +331,7 @@ function App() {
                       badge="The Full Flavor"
                       accent="from-fuchsia-400/55"
                       text={result.succulent}
+                      variant="succulent"
                       onCopy={() => handleCopy(result.succulent)}
                     />
                   </div>
@@ -318,7 +344,10 @@ function App() {
       </main>
 
       <footer className="relative z-10 border-t border-slate-800/80 bg-slate-950/90 backdrop-blur-sm">
-        <div className="max-w-5xl mx-auto px-4 py-3">
+        <div className="max-w-5xl mx-auto px-4 py-3 space-y-2">
+          <p className="text-[0.72rem] text-slate-300">
+            Designed for awareness, transparency, and shareability — not legal judgment.
+          </p>
           <p className="text-[0.7rem] text-slate-500 leading-relaxed">
             SpinBack Studio rephrases text into stylistic 'vibes' for awareness and entertainment. It does not summarize, interpret, or explain legal meaning, and it is not legal advice. For serious legal questions, consult a qualified attorney. For consumer-rights tooling, see Peeved/Pleased Patron (private ecosystem).
           </p>
