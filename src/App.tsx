@@ -88,7 +88,7 @@ function App() {
       />
 
       <header className="relative z-10 border-b border-slate-800/80 backdrop-blur-sm bg-slate-950/70">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
           <div className="space-y-0.5">
             <div className="inline-flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
@@ -110,7 +110,7 @@ function App() {
       </header>
 
       <main className="relative z-10">
-        <div className="max-w-5xl mx-auto px-4 py-6 sm:py-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
           <div className="rounded-3xl border border-slate-700/70 bg-slate-950/85 shadow-[0_0_0_1px_rgba(15,23,42,0.9),0_32px_120px_rgba(15,23,42,0.95)] overflow-hidden">
             <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 border-b border-slate-800/80 bg-gradient-to-r from-slate-950/90 via-slate-900/70 to-slate-950/90">
               <div className="flex items-center gap-2">
@@ -144,8 +144,8 @@ function App() {
                 </p>
               </section>
 
-              <section className="grid gap-6 lg:grid-cols-[minmax(0,2.1fr)_minmax(0,1.1fr)] items-start">
-                <div className="space-y-3">
+              <section className="flex flex-col gap-6 lg:flex-row lg:items-start">
+                <div className="w-full lg:w-[65%] space-y-3">
                   <div className="space-y-2">
                     <label className="text-[0.7rem] uppercase tracking-wide text-slate-400">
                       Input clause
@@ -176,7 +176,7 @@ function App() {
                       type="button"
                       onClick={handleGenerate}
                       disabled={loading}
-                      className="inline-flex items-center gap-2 rounded-full bg-sky-500 hover:bg-sky-400 disabled:opacity-60 disabled:hover:bg-sky-500 px-4 py-2 text-[0.75rem] sm:text-xs font-medium text-slate-950 transition shadow-[0_0_18px_rgba(56,189,248,0.55)]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-sky-500 hover:bg-sky-400 disabled:opacity-60 disabled:hover:bg-sky-500 px-4 py-2 text-[0.75rem] sm:text-xs font-medium text-slate-950 transition shadow-[0_0_18px_rgba(56,189,248,0.55)]"
                     >
                       {loading && (
                         <span className="h-3 w-3 rounded-full border-2 border-slate-950 border-l-transparent animate-spin" />
@@ -192,7 +192,7 @@ function App() {
                   )}
                 </div>
 
-                <aside className="space-y-3">
+                <aside className="w-full lg:w-[35%] space-y-3">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="text-[0.7rem] uppercase tracking-wide text-slate-400">
                       Quick-start clauses
@@ -207,7 +207,7 @@ function App() {
                         key={ex.label}
                         type="button"
                         onClick={() => handleUseExample(ex.text)}
-                        className="w-full text-left rounded-xl border border-slate-800 bg-slate-950/80 hover:border-sky-400/70 hover:bg-slate-950/95 transition px-3 py-2.5"
+                        className="w-full text-left rounded-xl border border-slate-800 bg-slate-950/80 hover:border-sky-400/70 hover:bg-slate-950/95 transition px-3 py-2.5 text-xs sm:text-sm"
                       >
                         <div className="flex items-center justify-between gap-2 mb-1">
                           <span className="text-[0.75rem] font-medium text-slate-100">
@@ -231,16 +231,16 @@ function App() {
               </section>
 
               <section className="space-y-3 pt-1">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="text-[0.7rem] uppercase tracking-wide text-slate-400">
                       Reframed Vibes (non-legal styles):
                     </h3>
                     <div className="relative group">
-                      <span className="cursor-help text-xs text-slate-400 border border-slate-600 rounded-full px-1.5 py-0.5">
+                      <span className="cursor-help text-xs text-slate-400 border border-slate-600 rounded-full px-1.5 py-0.5 whitespace-nowrap">
                         Why four styles?
                       </span>
-                      <div className="absolute z-20 mt-2 hidden w-64 rounded-md border border-slate-700 bg-slate-900/95 px-3 py-2 text-xs text-slate-200 shadow-lg group-hover:block">
+                      <div className="absolute z-20 mt-2 left-0 hidden w-64 max-w-[calc(100vw-2rem)] rounded-md border border-slate-700 bg-slate-900/95 px-3 py-2 text-xs text-slate-200 shadow-lg group-hover:block">
                         <p className="font-semibold mb-1">Each style exposes a different dimension of the clause:</p>
                         <ul className="list-disc list-inside space-y-0.5">
                           <li><span className="font-semibold">Plain</span> → clarity</li>
@@ -301,7 +301,7 @@ function App() {
                       </p>
                     </div>
 
-                    <div className="grid gap-3 md:grid-cols-4">
+                    <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
                     <ResultCard
                       title="Plain language"
                       badge="The Naked Ingredient"
@@ -344,7 +344,7 @@ function App() {
       </main>
 
       <footer className="relative z-10 border-t border-slate-800/80 bg-slate-950/90 backdrop-blur-sm">
-        <div className="max-w-5xl mx-auto px-4 py-3 space-y-2">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-2">
           <p className="text-[0.72rem] text-slate-300">
             Designed for awareness, transparency, and shareability — not legal judgment.
           </p>

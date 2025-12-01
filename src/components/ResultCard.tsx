@@ -21,25 +21,27 @@ export function ResultCard({ title, badge, accent, text, variant, onCopy }: Resu
         aria-hidden="true"
         className={`pointer-events-none absolute -inset-px bg-gradient-to-br ${accent} via-transparent to-transparent opacity-0 group-hover:opacity-20 transition`}
       />
-      <div className="relative z-10 flex items-center justify-between gap-2 mb-2">
-        <div>
-          <h4 className="text-[0.8rem] font-semibold text-slate-50">
-            {title}
-          </h4>
-          <span className="inline-flex mt-1 px-2 py-0.5 rounded-full text-[0.6rem] bg-slate-900/80 border border-slate-700 text-slate-200 uppercase tracking-wide">
-            {badge}
-          </span>
-          <p className="mt-1 text-[0.68rem] text-slate-300 leading-snug">
-            {variantDescriptions[variant]}
-          </p>
+      <div className="relative z-10 mb-2">
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <div className="flex-1 min-w-0">
+            <h4 className="text-[0.8rem] font-semibold text-slate-50">
+              {title}
+            </h4>
+            <span className="inline-flex mt-1 px-2 py-0.5 rounded-full text-[0.6rem] bg-slate-900/80 border border-slate-700 text-slate-200 uppercase tracking-wide">
+              {badge}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={onCopy}
+            className="flex-shrink-0 text-[0.65rem] px-2 py-1 rounded-full border border-slate-700 bg-slate-950/80 text-slate-300 hover:border-sky-400 hover:text-sky-100 transition"
+          >
+            Copy
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={onCopy}
-          className="text-[0.65rem] px-2 py-1 rounded-full border border-slate-700 bg-slate-950/80 text-slate-300 hover:border-sky-400 hover:text-sky-100 transition"
-        >
-          Copy
-        </button>
+        <p className="text-[0.68rem] text-slate-300 leading-snug">
+          {variantDescriptions[variant]}
+        </p>
       </div>
       <p className="relative z-10 text-[0.78rem] text-slate-200 leading-relaxed">
         {text}
